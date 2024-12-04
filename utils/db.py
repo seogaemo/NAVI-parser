@@ -59,7 +59,8 @@ class DB:
             time TIMESTAMP WITH TIME ZONE,
             duration FLOAT,
             speed FLOAT,
-            video TEXT
+            video TEXT,
+            image BOOLEAN
         )
         """
         self.cur.execute(create_table_query)
@@ -67,8 +68,8 @@ class DB:
 
     def insertData(self, data):
         insert_data_query = """
-        INSERT INTO road_data (id, lat, lng, ele, time, duration, speed, video)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO road_data (id, lat, lng, ele, time, duration, speed, video, image)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         self.cur.execute(
             insert_data_query,
@@ -81,6 +82,7 @@ class DB:
                 data["duration"],
                 data["speed"],
                 data["video"],
+                data["image"],
             ),
         )
         self.conn.commit()

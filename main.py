@@ -89,8 +89,10 @@ class App:
                         try:
                             id = str(uuid4())
                             frame = extractor.extractFrame(
-                                math.trunc(point["duration"]) - 0.2  # 오류 방지
+                                math.trunc(point["duration"])
+                                - 0.15  # 오류 방지
                             )
+                            isFrame = frame is not None
 
                             # S3에 업로드
                             key = f"{id}.jpg"
@@ -107,6 +109,7 @@ class App:
                                     "duration": point["duration"],
                                     "speed": point["speed"],
                                     "video": videoPath,
+                                    "image": isFrame,
                                 }
                             )
 
